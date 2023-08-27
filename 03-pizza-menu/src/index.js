@@ -79,20 +79,24 @@ function Pizza({ pizza }) {
 }
 
 function Menu() {
-  const pizzaComponents = pizzaData.map((pizza) => (
-    <Pizza key={pizza.name} pizza={pizza} />
-  ));
+  const pizzas = pizzaData;
+  // const pizzas = [];
+  const numPizzas = pizzas.length;
+  const pizzaComponents =
+    numPizzas > 0 &&
+    pizzas.map((pizza) => <Pizza key={pizza.name} pizza={pizza} />);
+
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      <ul className="pizzas">{pizzaComponents}</ul>
+      {pizzaComponents && <ul className="pizzas">{pizzaComponents}</ul>}
     </main>
   );
 }
 
 function Footer() {
   const hour = new Date().getHours();
-  const openHour = 12;
+  const openHour = 0;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
   // alert(
@@ -103,7 +107,10 @@ function Footer() {
   return (
     <footer className="footer">
       {isOpen && (
-        <p>We're open until {closeHour}:00. Come visit us or order online.</p>
+        <div className="order">
+          <p>We're open until {closeHour}:00. Come visit us or order online.</p>
+          <button className="btn">Order</button>
+        </div>
       )}
     </footer>
   );
