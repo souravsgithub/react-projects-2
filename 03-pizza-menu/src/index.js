@@ -83,20 +83,25 @@ function Menu() {
   // const pizzas = [];
   const numPizzas = pizzas.length;
   const pizzaComponents =
-    numPizzas > 0 &&
-    pizzas.map((pizza) => <Pizza key={pizza.name} pizza={pizza} />);
+    numPizzas > 0
+      ? pizzas.map((pizza) => <Pizza key={pizza.name} pizza={pizza} />)
+      : null;
 
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-      {pizzaComponents && <ul className="pizzas">{pizzaComponents}</ul>}
+      {pizzaComponents ? (
+        <ul className="pizzas">{pizzaComponents}</ul>
+      ) : (
+        <p>We're still working on our menu. Please come back later :)</p>
+      )}
     </main>
   );
 }
 
 function Footer() {
   const hour = new Date().getHours();
-  const openHour = 0;
+  const openHour = 12;
   const closeHour = 22;
   const isOpen = hour >= openHour && hour <= closeHour;
   // alert(
@@ -106,11 +111,15 @@ function Footer() {
   // );
   return (
     <footer className="footer">
-      {isOpen && (
+      {isOpen ? (
         <div className="order">
           <p>We're open until {closeHour}:00. Come visit us or order online.</p>
           <button className="btn">Order</button>
         </div>
+      ) : (
+        <p>
+          We're happy to welcome you between {openHour}:00 and {closeHour}:00.
+        </p>
       )}
     </footer>
   );
