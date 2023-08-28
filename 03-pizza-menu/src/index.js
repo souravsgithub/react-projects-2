@@ -66,13 +66,14 @@ function Header() {
 }
 
 function Pizza({ pizza }) {
+  // if (pizza.soldOut) return null;
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizza.soldOut ? "sold-out" : ""}`}>
       <img src={pizza.photoName} alt={pizza.name} />
       <div>
         <h3>{pizza.name}</h3>
         <p>{pizza.ingredients}</p>
-        <span>{pizza.price}</span>
+        <span>{pizza.soldOut ? "SOLD OUT" : pizza.price}</span>
       </div>
     </li>
   );
@@ -91,7 +92,13 @@ function Menu() {
     <main className="menu">
       <h2>Our Menu</h2>
       {pizzaComponents ? (
-        <ul className="pizzas">{pizzaComponents}</ul>
+        <>
+          <p>
+            Automatic Italian cuisine. 6 creative dishes to choose from. All
+            from our store oven, all organic, all delicious.
+          </p>
+          <ul className="pizzas">{pizzaComponents}</ul>
+        </>
       ) : (
         <p>We're still working on our menu. Please come back later :)</p>
       )}
@@ -112,10 +119,7 @@ function Footer() {
   return (
     <footer className="footer">
       {isOpen ? (
-        <div className="order">
-          <p>We're open until {closeHour}:00. Come visit us or order online.</p>
-          <button className="btn">Order</button>
-        </div>
+        <Order closeHour={closeHour} />
       ) : (
         <p>
           We're happy to welcome you between {openHour}:00 and {closeHour}:00.
@@ -130,6 +134,14 @@ function Footer() {
   // );
 }
 
+function Order({ closeHour }) {
+  return (
+    <div className="order">
+      <p>We're open until {closeHour}:00. Come visit us or order online.</p>
+      <button className="btn">Order</button>
+    </div>
+  );
+}
 // React v18
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
