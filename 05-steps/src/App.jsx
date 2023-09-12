@@ -6,6 +6,7 @@ const messages = [
 ];
 
 function App() {
+  const btnStyles = { backgroundColor: "#7950f2", color: "#fff" };
   function goNext() {
     step < 3 && setStep((prevStep) => prevStep + 1);
   }
@@ -24,16 +25,10 @@ function App() {
       <p className="message">{`Step ${step}: ${messages[step - 1]}`}</p>
 
       <div className="buttons">
-        <button
-          style={{ backgroundColor: "#7950f2", color: "#fff" }}
-          onClick={goPrev}
-        >
+        <button style={step === 1 ? {} : btnStyles} onClick={goPrev}>
           Previous
         </button>
-        <button
-          style={{ backgroundColor: "#7950f2", color: "#fff" }}
-          onClick={goNext}
-        >
+        <button style={step === 3 ? {} : btnStyles} onClick={goNext}>
           Next
         </button>
       </div>
